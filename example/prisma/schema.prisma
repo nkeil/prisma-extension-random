@@ -2,8 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["clientExtensions"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -13,20 +12,21 @@ datasource db {
 
 model User {
   id    Int    @id @default(autoincrement())
-  email String @unique
-  name  String
-
   posts Post[]
+
+  firstName String
+  lastName  String
 }
 
 model Post {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime
-  title     String
-  content   String?
-  published Boolean  @default(false)
-
+  id       Int  @id @default(autoincrement())
   author   User @relation(fields: [authorId], references: [id])
   authorId Int
+
+  title     String
+  content   String?
+  published Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }
