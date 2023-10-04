@@ -1,0 +1,32 @@
+{
+  "name": "prisma-extension-random",
+  "version": "0.1.0",
+  "author": "Nicolas Keil <nkeil.dev@gmail.com>",
+  "description": "Add some randomness to your favorite Prisma queries!",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nkeil/prisma-extension-random"
+  },
+  "keywords": [
+    "prisma",
+    "@prisma/client",
+    "extension",
+    "random"
+  ],
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "format": "prettier --write src/**/*.ts *.md --ignore-unknown --no-error-on-unmatched-pattern"
+  },
+  "peerDependencies": {
+    "@prisma/client": "latest"
+  },
+  "devDependencies": {
+    "@prisma/client": "latest",
+    "prettier": "^3.0.3",
+    "prisma": "latest",
+    "typescript": "4.9.4"
+  }
+}
