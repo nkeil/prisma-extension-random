@@ -5,7 +5,7 @@
 ## Features
 
 - Random Row Retrieval: easily retrieve a random row from your database table using `table.findRandom()`.
-- Random Row Subset retrieval: use `table.findManyRandom()` to query for a customized random row subset of an arbituary `findMany()` query.
+- Random Row Subset retrieval: use `table.findManyRandom()` to query for a customized random row subset of an arbitrary `findMany()` query.
 
 ## Installation
 
