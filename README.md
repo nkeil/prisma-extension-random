@@ -51,4 +51,4 @@ const movies = await prisma.movie.findManyRandom(5, {
 
 ## Contributing
 
-Feel free to issues and pull requests are welcome.
+Issues and pull requests are welcome. I'll review them as soon as possible!
