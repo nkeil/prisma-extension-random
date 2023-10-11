@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "@prisma/client": "latest",
+    "@types/node": "^20.8.4",
     "prettier": "^3.0.3",
     "prisma": "latest",
     "rimraf": "^5.0.5",
