@@ -1,0 +1,72 @@
+# .github/release.yml
+
+name: Release on npm
+on:
+  push:
+    branches: main
+    paths: package.json
+
+jobs:
+  build_and_publish:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: latest
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build
+        run: pnpm build
+
+      - id: publish
+        name: Publish to NPM
+        uses: JS-DevTools/npm-publish@v2
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+
+      - name: Post-publish
+        if: steps.publish.outputs.type
+        run: |
+          echo "Published ${{ steps.publish.outputs.type }} version: ${{ steps.publish.outputs.version }}"
+
+      - name: Publish skipped
+        if: steps.publish.outputs.type == ''
+        run: |
+          echo "Version in package.json has not changed. Skipping."
+          exit 0
+
+      - name: Build Changelog
+        if: steps.publish.outputs.type
+        id: github_release
+        uses: mikepenz/release-changelog-builder-action@v4.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          configurationJson: |
+            {
+              "template": "## Commits:\n\n${{ '${{UNCATEGORIZED}}' }}",
+              "pr_template": ${{ '"- ${{MERGE_SHA}} ${{TITLE}}"' }},
+              "categories": []
+            }
+          commitMode: true
+          toTag: ${{ github.ref }}
+
+      - name: Create Release
+        if: steps.publish.outputs.type
+        uses: mikepenz/action-gh-release@v0.4.0
+        with:
+          tag_name: v${{ steps.publish.outputs.version }}
+          body: ${{steps.github_release.outputs.changelog}}

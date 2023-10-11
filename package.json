@@ -14,6 +14,11 @@
     "random"
   ],
   "license": "MIT",
+  "engines": {
+    "node": "^18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "packageManager": "pnpm@8.9.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -29,6 +34,7 @@
   },
   "devDependencies": {
     "@prisma/client": "latest",
+    "@types/node": "^20.8.4",
     "prettier": "^3.0.3",
     "prisma": "latest",
     "rimraf": "^5.0.5",
