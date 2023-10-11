@@ -1,16 +1,16 @@
-import { Prisma } from "@prisma/client/extension";
+import { Prisma } from '@prisma/client/extension';
 
 type Args = {};
 
 export default (_extensionArgs?: Args) =>
   Prisma.defineExtension((prisma) => {
     return prisma.$extends({
-      name: "prisma-extension-random",
+      name: 'prisma-extension-random',
       model: {
         $allModels: {
           async findRandom<T, A>(
             this: T,
-            args?: Prisma.Exact<A, Prisma.Args<T, "findFirst">> & object
+            args?: Prisma.Exact<A, Prisma.Args<T, 'findFirst'>> & object,
           ) {
             const context = Prisma.getExtensionContext(this);
 
@@ -20,7 +20,7 @@ export default (_extensionArgs?: Args) =>
             return (await (context as any).findFirst({
               ...args,
               skip: Math.max(0, Math.floor(Math.random() * numRows)),
-            })) as Prisma.Result<T, A, "findFirst">;
+            })) as Prisma.Result<T, A, 'findFirst'>;
           },
 
           async findManyRandom<T, TWhere, TSelect>(
@@ -29,19 +29,19 @@ export default (_extensionArgs?: Args) =>
             args?: {
               where?: Prisma.Exact<
                 TWhere,
-                Prisma.Args<T, "findFirst">["where"]
+                Prisma.Args<T, 'findFirst'>['where']
               >;
               select?: Prisma.Exact<
                 TSelect,
-                Prisma.Args<T, "findFirst">["select"] & { id: true }
+                Prisma.Args<T, 'findFirst'>['select'] & { id: true }
               >;
-            }
+            },
           ) {
             const context = Prisma.getExtensionContext(this);
             type FindFirstResult = Prisma.Result<
               T,
               { where: TWhere; select: TSelect },
-              "findFirst"
+              'findFirst'
             >;
 
             const select = args?.select ?? { id: true as const };
@@ -67,8 +67,8 @@ export default (_extensionArgs?: Args) =>
               if (!row) {
                 console.error(
                   `get random row failed. Where clause: ${JSON.stringify(
-                    where
-                  )}`
+                    where,
+                  )}`,
                 );
                 break;
               }

@@ -26,7 +26,7 @@
   ],
   "scripts": {
     "build": "rimraf dist && tsc",
-    "format": "prettier --write src/**/*.ts *.md --ignore-unknown --no-error-on-unmatched-pattern",
+    "format": "prettier --write \"**/*.ts\" \"**/*.md\" --ignore-unknown --no-error-on-unmatched-pattern",
     "type-check": "tsc --noEmit"
   },
   "peerDependencies": {

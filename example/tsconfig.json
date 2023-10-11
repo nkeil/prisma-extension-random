@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "lib": ["es2023"],
+    "lib": ["esnext"],
     "module": "esnext",
     "target": "es2022",
 

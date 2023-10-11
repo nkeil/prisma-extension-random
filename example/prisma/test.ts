@@ -1,4 +1,4 @@
-import { prisma } from "../";
+import { prisma } from '../';
 
 const main = async () => {
   const user = await prisma.user.findRandom();
@@ -7,8 +7,8 @@ const main = async () => {
     select: { id: true, title: true },
     where: {
       OR: [
-        { title: { contains: "prisma" } },
-        { content: { contains: "prisma" } },
+        { title: { contains: 'prisma' } },
+        { content: { contains: 'prisma' } },
       ],
       published: true,
     },

@@ -23,8 +23,8 @@ pnpm add prisma-extension-random          # pnpm
 1. Import the extension and add it to your Prisma client:
 
 ```typescript
-import { PrismaClient } from "@prisma/client";
-import prismaRandom from "prisma-extension-random";
+import { PrismaClient } from '@prisma/client';
+import prismaRandom from 'prisma-extension-random';
 
 const prisma = new PrismaClient().$extends(prismaRandom());
 ```
@@ -35,7 +35,7 @@ const prisma = new PrismaClient().$extends(prismaRandom());
 // Find a random post from an author whose firstname starts with "B"
 const post = await prisma.post.findRandom({
   select: { id: true, title: true },
-  where: { author: { firstName: { startsWith: "B" } } },
+  where: { author: { firstName: { startsWith: 'B' } } },
 });
 ```
 
