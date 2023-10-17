@@ -1,6 +1,6 @@
 {
   "name": "prisma-extension-random",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "author": "Nicolas Keil <nkeil.dev@gmail.com>",
   "description": "Add some randomness to your favorite Prisma queries!",
   "repository": {
@@ -30,10 +30,10 @@
     "type-check": "tsc --noEmit"
   },
   "peerDependencies": {
-    "@prisma/client": "latest"
+    "@prisma/client": "^5.4.2"
   },
   "devDependencies": {
-    "@prisma/client": "latest",
+    "@prisma/client": "^5.4.2",
     "@types/node": "^20.8.4",
     "prettier": "^3.0.3",
     "prisma": "latest",
