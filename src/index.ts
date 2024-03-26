@@ -1,4 +1,4 @@
-import { Prisma } from '@prisma/client/extension';
+import { Prisma } from '@prisma/client';
 
 type Args = {};
 
