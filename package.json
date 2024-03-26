@@ -1,31 +1,51 @@
 {
   "name": "prisma-extension-random",
   "version": "0.1.3",
+  "license": "MIT",
   "author": "Nicolas Keil <nkeil.dev@gmail.com>",
   "description": "Add some randomness to your favorite Prisma queries!",
   "repository": {
     "type": "git",
     "url": "https://github.com/nkeil/prisma-extension-random"
   },
+  "bugs": {
+    "url": "https://github.com/nkeil/prisma-extension-random/issues"
+  },
+  "homepage": "https://github.com/nkeil/prisma-extension-random#readme",
   "keywords": [
     "prisma",
     "@prisma/client",
     "extension",
     "random"
   ],
-  "license": "MIT",
   "engines": {
     "node": "18 || 20",
     "pnpm": ">=8.0.0"
   },
   "packageManager": "pnpm@8.15.5",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.mjs",
+  "types": "dist/cjs/index.d.ts",
   "files": [
-    "/dist"
+    "dist/**/*"
   ],
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": {
+        "default": "./dist/esm/index.mjs",
+        "types": "./dist/esm/index.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/index.js",
+        "types": "./dist/cjs/index.d.ts"
+      }
+    }
+  },
   "scripts": {
-    "build": "rimraf dist && tsc",
+    "build": "rimraf dist && pnpm build:esm && pnpm build:cjs",
+    "build:esm": "tsc -p ./tsconfig.esm.json && move-file dist/esm/index.js dist/esm/index.mjs",
+    "build:cjs": "tsc -p ./tsconfig.cjs.json",
     "format": "prettier --write \"**/*.ts\" \"**/*.md\" --ignore-unknown --no-error-on-unmatched-pattern",
     "type-check": "tsc --noEmit"
   },
@@ -35,6 +55,7 @@
   "devDependencies": {
     "@prisma/client": "^5.4.2",
     "@types/node": "^20.8.4",
+    "move-file-cli": "^3.0.0",
     "prettier": "^3.0.3",
     "prisma": "latest",
     "rimraf": "^5.0.5",
