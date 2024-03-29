@@ -1,6 +1,6 @@
 {
   "name": "prisma-extension-random",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "license": "MIT",
   "author": "Nicolas Keil <nkeil.dev@gmail.com>",
   "description": "Add some randomness to your favorite Prisma queries!",
