@@ -43,9 +43,7 @@
     }
   },
   "scripts": {
-    "build": "rimraf dist && pnpm build:esm && pnpm build:cjs",
-    "build:esm": "tsc -p ./tsconfig.esm.json && move-file dist/esm/index.js dist/esm/index.mjs",
-    "build:cjs": "tsc -p ./tsconfig.cjs.json",
+    "build": "rimraf dist && tsc",
     "format": "prettier --write \"**/*.ts\" \"**/*.md\" --ignore-unknown --no-error-on-unmatched-pattern",
     "type-check": "tsc --noEmit"
   },
