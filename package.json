@@ -23,25 +23,20 @@
     "pnpm": ">=8.0.0"
   },
   "packageManager": "pnpm@8.15.5",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.mjs",
-  "types": "dist/cjs/index.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
   "files": [
     "dist/**/*"
   ],
-  "exports": {
-    "./package.json": "./package.json",
-    ".": {
-      "import": {
-        "default": "./dist/esm/index.mjs",
-        "types": "./dist/esm/index.d.ts"
-      },
-      "require": {
-        "default": "./dist/cjs/index.js",
-        "types": "./dist/cjs/index.d.ts"
-      }
-    }
-  },
   "scripts": {
     "build": "rimraf dist && tsc",
     "format": "prettier --write \"**/*.ts\" \"**/*.md\" --ignore-unknown --no-error-on-unmatched-pattern",
