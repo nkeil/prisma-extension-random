@@ -44,6 +44,9 @@ jobs:
       - name: Install deps (with cache)
         run: pnpm install --child-concurrency 3
 
+      - name: Generate prisma schema
+        run: npx prisma generate
+
       # If we ever add ESLint, uncomment this
       # - name: Run ESLint
       #   run: pnpm lint

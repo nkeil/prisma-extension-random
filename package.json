@@ -1,6 +1,6 @@
 {
   "name": "prisma-extension-random",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "license": "MIT",
   "author": "Nicolas Keil <nkeil.dev@gmail.com>",
   "description": "Add some randomness to your favorite Prisma queries!",
@@ -43,22 +43,20 @@
     }
   },
   "scripts": {
-    "build": "rimraf dist && pnpm build:esm && pnpm build:cjs",
-    "build:esm": "tsc -p ./tsconfig.esm.json && move-file dist/esm/index.js dist/esm/index.mjs",
-    "build:cjs": "tsc -p ./tsconfig.cjs.json",
+    "build": "rimraf dist && tsc",
     "format": "prettier --write \"**/*.ts\" \"**/*.md\" --ignore-unknown --no-error-on-unmatched-pattern",
     "type-check": "tsc --noEmit"
   },
   "peerDependencies": {
-    "@prisma/client": "^5.4.2"
+    "@prisma/client": "*"
   },
   "devDependencies": {
-    "@prisma/client": "^5.4.2",
+    "@prisma/client": "^5.11.0",
     "@types/node": "^20.8.4",
     "move-file-cli": "^3.0.0",
     "prettier": "^3.0.3",
-    "prisma": "latest",
+    "prisma": "^5.11.0",
     "rimraf": "^5.0.5",
-    "typescript": "4.9.4"
+    "typescript": "5.4.3"
   }
 }
