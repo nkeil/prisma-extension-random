@@ -20,7 +20,7 @@ model User {
 
 model Post {
   id       Int  @id @default(autoincrement())
-  author   User @relation(fields: [authorId], references: [id])
+  author   User @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId Int
 
   title     String
