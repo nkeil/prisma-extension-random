@@ -35,6 +35,7 @@
   ],
   "scripts": {
     "build": "rimraf dist && tsc",
+    "dev": "tsx example/index.ts",
     "format": "prettier --write \"**/*.ts\" \"**/*.md\" --ignore-unknown --no-error-on-unmatched-pattern",
     "type-check": "tsc --noEmit"
   },
@@ -47,6 +48,10 @@
     "prettier": "^3.2.5",
     "prisma": "^5.11.0",
     "rimraf": "^5.0.5",
+    "tsx": "^4.7.1",
     "typescript": "5.4.3"
+  },
+  "prisma": {
+    "seed": "tsx example/seed.ts"
   }
 }
