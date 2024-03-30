@@ -7,11 +7,11 @@
     "seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
-    "@prisma/client": "^5.4.1"
+    "@prisma/client": "^5.11.0"
   },
   "devDependencies": {
-    "prisma": "^5.4.1",
-    "tsx": "^3.13.0",
-    "typescript": "^5.2.2"
+    "prisma": "^5.11.0",
+    "tsx": "^3.14.0",
+    "typescript": "^5.4.3"
   }
 }

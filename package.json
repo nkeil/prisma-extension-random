@@ -48,9 +48,9 @@
   },
   "devDependencies": {
     "@prisma/client": "^5.11.0",
-    "@types/node": "^20.8.4",
+    "@types/node": "^20.12.2",
     "move-file-cli": "^3.0.0",
-    "prettier": "^3.0.3",
+    "prettier": "^3.2.5",
     "prisma": "^5.11.0",
     "rimraf": "^5.0.5",
     "typescript": "5.4.3"
