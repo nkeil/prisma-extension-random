@@ -11,7 +11,7 @@ beforeEach(async () => {
   for (let i = 1; i <= POPULATION; ++i) {
     await prisma.user.create({
       data: {
-        firstName: 'User',
+        firstName: 'User' + (i % 2),
         lastName: i.toString(),
       },
     });
@@ -24,7 +24,13 @@ test('empty findRandom', async () => {
   assert.isNull(user);
 });
 
-test('findRandom', async () => {
+test('empty findManyRandom', async () => {
+  await prisma.user.deleteMany();
+  const users = await prisma.user.findManyRandom(10000);
+  assert.isEmpty(users);
+});
+
+test('findRandom distribution', async () => {
   const results: Record<string, number> = {};
   let sum = 0;
   for (let i = 0; i < NUM_TRIALS; ++i) {
@@ -56,4 +62,14 @@ test('findRandom', async () => {
 
   assert.isBelow(std, expectedStd * 1.01);
   assert.isAbove(std, expectedStd * 0.99);
+});
+
+test('findManyRandom', async () => {
+  const users1 = await prisma.user.findManyRandom(POPULATION, {
+    where: { firstName: 'User0' },
+  });
+  assert.lengthOf(users1, POPULATION / 2);
+
+  const users2 = await prisma.user.findManyRandom(POPULATION + 10009);
+  assert.lengthOf(users2, POPULATION);
 });
