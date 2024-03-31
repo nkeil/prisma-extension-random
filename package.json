@@ -1,6 +1,7 @@
 {
   "name": "prisma-extension-random",
   "version": "0.1.6",
+  "type": "module",
   "license": "MIT",
   "author": "Nicolas Keil <nkeil.dev@gmail.com>",
   "description": "Add some randomness to your favorite Prisma queries!",
@@ -20,22 +21,27 @@
   ],
   "packageManager": "pnpm@8.15.5",
   "sideEffects": false,
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.js",
-      "import": "./dist/index.js",
-      "default": "./dist/index.js"
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
     }
   },
   "files": [
     "dist/**/*"
   ],
   "scripts": {
-    "build": "rimraf dist && tsc",
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
+    "watch": "pnpm build --watch src",
     "dev": "tsx example/index.ts",
     "test": "npx prisma db push && vitest",
     "format": "prettier --write \"**/*.ts\" \"**/*.md\" --ignore-unknown --no-error-on-unmatched-pattern",
@@ -49,7 +55,7 @@
     "@types/node": "^20.12.2",
     "prettier": "^3.2.5",
     "prisma": "^5.11.0",
-    "rimraf": "^5.0.5",
+    "tsup": "^8.0.2",
     "tsx": "^4.7.1",
     "typescript": "5.4.3",
     "vitest": "^1.4.0"
