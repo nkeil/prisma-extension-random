@@ -1,4 +1,4 @@
-import { prisma } from './db';
+import { prisma } from './db.js';
 
 const main = async () => {
   const user = await prisma.user.findRandom();

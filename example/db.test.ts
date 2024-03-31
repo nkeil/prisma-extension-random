@@ -1,4 +1,4 @@
-import { prisma } from './db';
+import { prisma } from './db.js';
 import { assert, beforeEach, test } from 'vitest';
 
 const POPULATION = 1000;
@@ -48,7 +48,7 @@ test('findRandom distribution', async () => {
   const mean = sum / NUM_TRIALS;
   const std = Math.sqrt(
     Object.keys(results)
-      .map((idx) => results[idx] * Math.pow(+idx - mean, 2))
+      .map((idx) => (results[idx] ?? 0) * Math.pow(+idx - mean, 2))
       .reduce((a, b) => a + b) / NUM_TRIALS,
   );
   console.log({ mean, std });

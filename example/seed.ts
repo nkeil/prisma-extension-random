@@ -1,4 +1,4 @@
-import { prisma } from './db';
+import { prisma } from './db.js';
 
 const users = [
   { firstName: 'Ida', lastName: 'Lupino' },
