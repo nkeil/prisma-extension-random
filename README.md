@@ -4,18 +4,16 @@
 
 ## Features
 
-- Random Row Retrieval: easily retrieve a random row from your database table using `table.findRandom()`.
-- Random Row Subset retrieval: use `table.findManyRandom()` to query for a customized random row subset of an arbitrary `findMany()` query.
+- Random row retrieval: easily retrieve a random row from your database table using `findRandom()`.
+- Random multi-row retrieval: use `findManyRandom()` to query for a random subset of a `findMany()` query.
 
 ## Installation
 
-Install the Prisma Random Query Extension using your favorite npm package manager:
-
 ```bash
-npm install prisma-extension-random       # npm
-yarn add prisma-extension-random          # yarn
-bun add prisma-extension-random           # bun
-pnpm add prisma-extension-random          # pnpm
+npm install prisma-extension-random
+yarn add prisma-extension-random
+bun add prisma-extension-random
+pnpm add prisma-extension-random
 ```
 
 ## Usage
@@ -46,6 +44,16 @@ const post = await prisma.post.findRandom({
 const movies = await prisma.movie.findManyRandom(5, {
   select: { id: true, title: true },
   where: { rating: { gte: 0.8 } },
+});
+```
+
+Note: when using models with a non-standard id field, you must specify the name of that field using `custom_uniqueKey` as below. If not specified, the name is assumed to be "id".
+
+```typescript
+// Assuming the User table's `@id` column is called 'email'
+const users = await prisma.user.findManyRandom(5, {
+  select: { name: true },
+  custom_uniqueKey: 'email',
 });
 ```
 

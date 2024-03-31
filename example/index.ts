@@ -1,10 +1,13 @@
 import { prisma } from './db.js';
 
 const main = async () => {
-  const user = await prisma.user.findRandom();
+  const user = await prisma.user.findRandom({
+    where: { id: { gt: 2 } },
+    select: { id: true, firstName: true },
+  });
 
   const post = await prisma.post.findManyRandom(10, {
-    select: { id: true, title: true },
+    select: { title: true },
     where: {
       OR: [
         { title: { contains: 'prisma' } },
@@ -12,6 +15,7 @@ const main = async () => {
       ],
       published: true,
     },
+    custom_uniqueKey: 'id',
   });
 
   console.log({ user, post });
