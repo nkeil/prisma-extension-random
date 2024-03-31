@@ -7,7 +7,7 @@ const main = async () => {
   });
 
   const post = await prisma.post.findManyRandom(10, {
-    select: { id: true, title: true },
+    select: { title: true },
     where: {
       OR: [
         { title: { contains: 'prisma' } },
@@ -15,6 +15,7 @@ const main = async () => {
       ],
       published: true,
     },
+    custom_uniqueKey: 'id',
   });
 
   console.log({ user, post });

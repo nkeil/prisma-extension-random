@@ -20,18 +20,20 @@ export default (_extensionArgs?: Args) =>
           )) as Prisma.Result<T, A, 'findFirst'>;
         },
 
-        async findManyRandom<T, TWhere, TSelect>(
+        async findManyRandom<T, TWhere, TSelect, TUnique extends string>(
           this: T,
           num: number,
           args?: {
             where?: Prisma.Exact<TWhere, Prisma.Args<T, 'findFirst'>['where']>;
             select?: Prisma.Exact<
               TSelect,
-              Prisma.Args<T, 'findFirst'>['select'] & { id: true }
+              Prisma.Args<T, 'findFirst'>['select']
             >;
+            custom_uniqueKey?: TUnique; // TODO: add intellisense?
           },
         ) {
           const context = Prisma.getExtensionContext(this);
+          type ExtendedSelect = TSelect & Record<TUnique, true>;
 
           return (await $findManyRandom(
             context as any,
@@ -39,7 +41,11 @@ export default (_extensionArgs?: Args) =>
             args as any,
           )) as Array<
             NonNullable<
-              Prisma.Result<T, { where: TWhere; select: TSelect }, 'findFirst'>
+              Prisma.Result<
+                T,
+                { where: TWhere; select: ExtendedSelect },
+                'findFirst'
+              >
             >
           >;
         },

@@ -21,21 +21,21 @@ export const $findManyRandom = async (
   args?: {
     select?: Prisma.UserFindFirstArgs['select'];
     where?: Prisma.UserFindFirstArgs['where'];
+    custom_uniqueKey?: 'id';
   },
 ): Promise<any> => {
-  const select = args?.select ?? { id: true as const };
-  let where = args?.where ?? {};
-
-  let numRows = await context.count({ where });
+  const uniqueKey = args?.custom_uniqueKey ?? 'id';
 
   const rows = [];
   const rowIds: User['id'][] = [];
 
-  where = {
-    ...where,
-    id: { notIn: rowIds },
-  };
+  const select = args?.select ?? {};
+  select[uniqueKey] = true;
 
+  const where = args?.where ?? {};
+  where[uniqueKey] = { notIn: rowIds };
+
+  let numRows = await context.count({ where });
   for (let i = 0; i < num && numRows > 0; ++i) {
     const row = await context.findFirst({
       select,
@@ -50,7 +50,7 @@ export const $findManyRandom = async (
       break;
     }
     rows.push(row);
-    rowIds.push(row.id);
+    rowIds.push(row[uniqueKey]);
     numRows--;
   }
 
