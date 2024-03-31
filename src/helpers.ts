@@ -2,7 +2,7 @@ import { Prisma, User } from '@prisma/client';
 
 // "User" types are used to simplify type inference
 
-export const findRandomSingle = async (
+export const $findRandom = async (
   context: Prisma.UserDelegate,
   args?: Prisma.UserFindFirstArgs,
 ): Promise<any> => {
@@ -15,7 +15,7 @@ export const findRandomSingle = async (
   });
 };
 
-export const findRandomMany = async (
+export const $findManyRandom = async (
   context: Prisma.UserDelegate,
   num: number,
   args?: {

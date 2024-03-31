@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client';
-import { findRandomMany, findRandomSingle } from './helpers.js';
+import { $findManyRandom, $findRandom } from './helpers.js';
 
 type Args = {};
 
@@ -14,7 +14,7 @@ export default (_extensionArgs?: Args) =>
         ) {
           const context = Prisma.getExtensionContext(this);
 
-          return (await findRandomSingle(
+          return (await $findRandom(
             context as any,
             args as any,
           )) as Prisma.Result<T, A, 'findFirst'>;
@@ -33,7 +33,7 @@ export default (_extensionArgs?: Args) =>
         ) {
           const context = Prisma.getExtensionContext(this);
 
-          return (await findRandomMany(
+          return (await $findManyRandom(
             context as any,
             num,
             args as any,
