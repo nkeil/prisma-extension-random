@@ -4,54 +4,45 @@ import { findRandomMany, findRandomSingle } from './helpers.js';
 type Args = {};
 
 export default (_extensionArgs?: Args) =>
-  Prisma.defineExtension((prisma) => {
-    return prisma.$extends({
-      name: 'prisma-extension-random',
-      model: {
-        $allModels: {
-          async findRandom<T, A>(
-            this: T,
-            args?: Prisma.Exact<A, Prisma.Args<T, 'findFirst'>> & object,
-          ) {
-            const context = Prisma.getExtensionContext(this);
+  Prisma.getExtensionContext({
+    name: 'prisma-extension-random',
+    model: {
+      $allModels: {
+        async findRandom<T, A>(
+          this: T,
+          args?: Prisma.Exact<A, Prisma.Args<T, 'findFirst'>> & object,
+        ) {
+          const context = Prisma.getExtensionContext(this);
 
-            return (await findRandomSingle(
-              context as any,
-              args as any,
-            )) as Prisma.Result<T, A, 'findFirst'>;
-          },
+          return (await findRandomSingle(
+            context as any,
+            args as any,
+          )) as Prisma.Result<T, A, 'findFirst'>;
+        },
 
-          async findManyRandom<T, TWhere, TSelect>(
-            this: T,
-            num: number,
-            args?: {
-              where?: Prisma.Exact<
-                TWhere,
-                Prisma.Args<T, 'findFirst'>['where']
-              >;
-              select?: Prisma.Exact<
-                TSelect,
-                Prisma.Args<T, 'findFirst'>['select'] & { id: true }
-              >;
-            },
-          ) {
-            const context = Prisma.getExtensionContext(this);
-
-            return (await findRandomMany(
-              context as any,
-              num,
-              args as any,
-            )) as Array<
-              NonNullable<
-                Prisma.Result<
-                  T,
-                  { where: TWhere; select: TSelect },
-                  'findFirst'
-                >
-              >
+        async findManyRandom<T, TWhere, TSelect>(
+          this: T,
+          num: number,
+          args?: {
+            where?: Prisma.Exact<TWhere, Prisma.Args<T, 'findFirst'>['where']>;
+            select?: Prisma.Exact<
+              TSelect,
+              Prisma.Args<T, 'findFirst'>['select'] & { id: true }
             >;
           },
+        ) {
+          const context = Prisma.getExtensionContext(this);
+
+          return (await findRandomMany(
+            context as any,
+            num,
+            args as any,
+          )) as Array<
+            NonNullable<
+              Prisma.Result<T, { where: TWhere; select: TSelect }, 'findFirst'>
+            >
+          >;
         },
       },
-    });
+    },
   });
