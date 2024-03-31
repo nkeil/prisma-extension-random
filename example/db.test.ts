@@ -73,3 +73,11 @@ test('findManyRandom', async () => {
   const users2 = await prisma.user.findManyRandom(POPULATION + 10009);
   assert.lengthOf(users2, POPULATION);
 });
+
+test('findRandom filtered', async () => {
+  const users1 = await prisma.user.findRandom({
+    where: { firstName: 'User0' },
+  });
+  assert.isNotNull(users1);
+  assert.equal(users1?.firstName, 'User0');
+});
