@@ -1,6 +1,10 @@
-# Randomness Extension for Prisma
+<div align="center">
+  <img src="logo.svg" width="200px" align="center" alt="zod-redis logo" />
+  <h1>🎲 prisma-extension-random 🎲</h1>
+  <h3>Let me tell you the definition of insanity...</h3>
+</div>
 
-`prisma-extension-random` is a Prisma Client Extension that simplifies the process of fetching random data from your database.
+Bored of fetching the same old data from your database over and over again? Tired of subscribing to 3 year old GitHub issue threads waiting for Prisma to add that feature you want? Well I've got just what you need! Spice up your life with `prisma-extension-random`, your one stop shop for all your random query needs. 
 
 ## Features
 
