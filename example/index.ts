@@ -6,7 +6,7 @@ const main = async () => {
     select: { id: true, firstName: true },
   });
 
-  const post = await prisma.post.findManyRandom(10, {
+  const posts = await prisma.post.findManyRandom(10, {
     select: { title: true },
     where: {
       OR: [
@@ -18,7 +18,16 @@ const main = async () => {
     custom_uniqueKey: 'id',
   });
 
-  console.log({ user, post });
+  const posts2 = await prisma.post.findManyRandom(10);
+
+  console.log({ user, posts, posts2 });
+
+  try {
+    const strange = await prisma.strange.findManyRandom(5);
+    console.log(strange);
+  } catch (e) {
+    console.log('there was an error');
+  }
 };
 
 main();

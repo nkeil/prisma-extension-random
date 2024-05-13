@@ -30,3 +30,8 @@ model Post {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
 }
+
+model Strange {
+  key   Int    @id @default(autoincrement())
+  value String
+}
