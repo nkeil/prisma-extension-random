@@ -1,5 +1,26 @@
 import { prisma } from './db.js';
-import { assert, beforeEach, test } from 'vitest';
+import { assert, beforeEach, expect, expectTypeOf, test } from 'vitest';
+
+interface User {
+  id: number;
+  firstName: string;
+  lastName: string;
+}
+
+interface Post {
+  id: number;
+  title: string;
+  content: string | null;
+  published: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  authorId: number;
+}
+
+interface Strange {
+  key: number;
+  value: string;
+}
 
 const POPULATION = 1000;
 const NUM_TRIALS = 10000;
@@ -20,14 +41,47 @@ beforeEach(async () => {
 
 test('empty findRandom', async () => {
   await prisma.user.deleteMany();
+
   const user = await prisma.user.findRandom();
+  const post = await prisma.post.findRandom();
+  const strange = await prisma.strange.findRandom();
+
+  expectTypeOf(user).toMatchTypeOf<User | null>();
+  expectTypeOf(post).toMatchTypeOf<Post | null>();
+  expectTypeOf(strange).toMatchTypeOf<Strange | null>();
+
   assert.isNull(user);
+  assert.isNull(post);
 });
 
 test('empty findManyRandom', async () => {
   await prisma.user.deleteMany();
+
   const users = await prisma.user.findManyRandom(10000);
+  const posts = await prisma.post.findManyRandom(10000);
+
+  expectTypeOf(users).toMatchTypeOf<{ id: number }[]>();
+  expectTypeOf(posts).toMatchTypeOf<{ id: number }[]>();
+
   assert.isEmpty(users);
+  assert.isEmpty(posts);
+
+  // 'strange' table doesn't have an `id` column, so this should fail
+  expect(
+    async () => await prisma.strange.findManyRandom(10000),
+  ).rejects.toThrowError();
+});
+
+test('custom unique key', async () => {
+  const strange = await prisma.strange.findManyRandom(5, {
+    custom_uniqueKey: 'key',
+  });
+
+  expectTypeOf(strange).toMatchTypeOf<{ key: number }[]>();
+  assert(strange.length === 5);
+  assert(
+    strange[0] && 'key' in strange[0] && typeof strange[0].key === 'number',
+  );
 });
 
 test('findRandom distribution', async () => {

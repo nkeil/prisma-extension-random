@@ -20,7 +20,7 @@ export default (_extensionArgs?: Args) =>
           )) as Prisma.Result<T, A, 'findFirst'>;
         },
 
-        async findManyRandom<T, TWhere, TSelect, TUnique extends string>(
+        async findManyRandom<T, TWhere, TSelect, TUnique extends string = 'id'>(
           this: T,
           num: number,
           args?: {
