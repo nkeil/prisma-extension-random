@@ -37,6 +37,11 @@ beforeEach(async () => {
       },
     });
   }
+  for (let i = 1; i <= 1000; ++i) {
+    await prisma.strange.create({
+      data: { value: 'value ' + i },
+    });
+  }
 });
 
 test('empty findRandom', async () => {
