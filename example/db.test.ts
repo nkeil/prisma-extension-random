@@ -29,15 +29,26 @@ const STD_RATIO = 3.4641016151377544;
 
 beforeEach(async () => {
   await prisma.user.deleteMany();
+  await prisma.post.deleteMany();
+  await prisma.strange.deleteMany();
+
   for (let i = 1; i <= POPULATION; ++i) {
-    await prisma.user.create({
+    const user = await prisma.user.create({
       data: {
         firstName: 'User' + (i % 2),
         lastName: i.toString(),
       },
     });
+    for (let i = 1; i <= 1; ++i) {
+      await prisma.post.create({
+        data: {
+          author: { connect: { id: user.id } },
+          title: 'Title',
+        },
+      });
+    }
   }
-  for (let i = 1; i <= 1000; ++i) {
+  for (let i = 1; i <= 10; ++i) {
     await prisma.strange.create({
       data: { value: 'value ' + i },
     });
@@ -46,6 +57,8 @@ beforeEach(async () => {
 
 test('empty findRandom', async () => {
   await prisma.user.deleteMany();
+  await prisma.post.deleteMany();
+  await prisma.strange.deleteMany();
 
   const user = await prisma.user.findRandom();
   const post = await prisma.post.findRandom();
@@ -57,10 +70,13 @@ test('empty findRandom', async () => {
 
   assert.isNull(user);
   assert.isNull(post);
+  assert.isNull(strange);
 });
 
 test('empty findManyRandom', async () => {
   await prisma.user.deleteMany();
+  await prisma.post.deleteMany();
+  await prisma.strange.deleteMany();
 
   const users = await prisma.user.findManyRandom(10000);
   const posts = await prisma.post.findManyRandom(10000);
